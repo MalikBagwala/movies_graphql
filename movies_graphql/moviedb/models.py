@@ -2,8 +2,9 @@ import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
-# Abstract Classes
 
+
+# Abstract Classes
 
 class Timestamp(models.Model):
     created_at = models.DateTimeField(
@@ -44,6 +45,11 @@ class Genre(Timestamp):
 
 class Actor(Person):
     pass
+
+
+"""
+The main Class For Movie Model
+"""
 
 
 class Movie(Timestamp):
