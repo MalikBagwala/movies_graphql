@@ -74,13 +74,13 @@ class User(Person, Timestamp):
 
 
 class Rating(Timestamp):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie_id = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     rating = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(10)])
 
     def __str__(self):
-        return f'{self.movie_id} : {self.rating}'
+        return f'{self.movie} : {self.rating}'
 
     class Meta:
-        unique_together = (("user_id", "movie_id"),)
+        unique_together = (("user", "movie"),)

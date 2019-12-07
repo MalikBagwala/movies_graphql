@@ -32,10 +32,21 @@ class MovieType(DjangoObjectType):
         model = models.Movie
 
 
+class RatingType(DjangoObjectType):
+    class Meta:
+        model = models.Rating
+
+
+class UserType(DjangoObjectType):
+    age = graphene.Int()
+
+    class Meta:
+        model = models.User
+
+
 # Queries
-
-
 class Query(graphene.ObjectType):
+    all_users = graphene.List(UserType, search=graphene.String())
     all_genres = graphene.List(GenreType, search=graphene.String())
     all_movies = graphene.List(MovieType, search=graphene.String())
     genre = graphene.Field(GenreType, id=graphene.ID(), name=graphene.String())
@@ -46,6 +57,14 @@ class Query(graphene.ObjectType):
             filter = (Q(name__icontains=search))
             return models.Genre.objects.filter(filter)
         return models.Genre.objects.all()
+
+    def resolve_all_users(self, info, **kwargs):
+        search = kwargs.get("search")
+        if search:
+            filter = (Q(first_name__icontains=search)
+                      | Q(last_name__icontains=search) | Q(number__icontains=search))
+            return models.User.objects.filter(filter)
+        return models.User.objects.all()
 
     def resolve_all_movies(self, info, **kwargs):
         search = kwargs.get("search")
@@ -87,8 +106,29 @@ class AddEditGenre(graphene.Mutation):
         return AddEditGenre(genre=obj)
 
 
+class AddEditRating(graphene.Mutation):
+    rating = graphene.Field(RatingType)
+
+    class Arguments:
+        movie = graphene.ID()
+        user = graphene.ID()
+        rating = graphene.Float()
+
+    def mutate(self, info, **arg):
+        user = arg.get("user")
+        movie = arg.get("movie")
+        rating = arg.get("rating")
+        obj, created = models.Rating.objects.update_or_create(
+            user=user,
+            movie=movie,
+            defaults={"rating": rating}
+        )
+        return AddEditRating(rating=obj)
+
+
 class Mutation(graphene.ObjectType):
     add_edit_genre = AddEditGenre.Field()
+    add_edit_rating = AddEditRating.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
