@@ -51,11 +51,6 @@ class Actor(Person):
     pass
 
 
-"""
-The main Class For Movie Model
-"""
-
-
 class Movie(Timestamp):
     title = models.CharField(max_length=128, verbose_name="Movie Title")
     budget = models.FloatField()
@@ -65,7 +60,7 @@ class Movie(Timestamp):
     actors = models.ManyToManyField(Actor)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} - {self.release_date}'
 
 
 class User(Person, Timestamp):
