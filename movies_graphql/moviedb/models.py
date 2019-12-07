@@ -1,7 +1,7 @@
+from datetime import datetime
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from datetime import datetime
 
 
 # Abstract Classes
@@ -22,6 +22,10 @@ class Person(models.Model):
     last_name = models.CharField(max_length=60, verbose_name="Last Name")
     date_of_birth = models.DateField(
         verbose_name="Date Of Birth", null=True, blank=True)
+
+    @property
+    def age(self):
+        return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
     @property
     def full_name(self):
