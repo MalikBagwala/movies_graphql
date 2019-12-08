@@ -12,6 +12,7 @@ from movies_graphql.moviedb.actor.actorqueries import ActorQuery
 from movies_graphql.moviedb.genre.genremutations import GenreMutation
 from movies_graphql.moviedb.rating.ratingmutations import RatingMutation
 from movies_graphql.moviedb.actor.actormutations import ActorMutation
+from movies_graphql.moviedb.movie.moviemutations import MovieMutation
 # Types
 
 
@@ -35,7 +36,7 @@ class Query(GenreQuery, MovieQuery, ActorQuery, graphene.ObjectType):
         return models.User.objects.all()
 
 
-class Mutation(GenreMutation, RatingMutation, ActorMutation, graphene.ObjectType):
+class Mutation(GenreMutation, RatingMutation, ActorMutation, MovieMutation, graphene.ObjectType):
     pass
 
 

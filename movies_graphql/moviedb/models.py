@@ -53,8 +53,8 @@ class Actor(Person):
 
 class Movie(Timestamp):
     title = models.CharField(max_length=128, verbose_name="Movie Title")
-    budget = models.FloatField()
-    box_office = models.FloatField("Box Office")
+    budget = models.FloatField(null=True, blank=True)
+    box_office = models.FloatField("Box Office", null=True, blank=True)
     release_date = models.DateField("Release Date")
     genres = models.ManyToManyField(Genre)
     actors = models.ManyToManyField(Actor)
