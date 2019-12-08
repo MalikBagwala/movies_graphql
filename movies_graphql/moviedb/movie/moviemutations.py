@@ -34,6 +34,9 @@ class AddEditMovie(graphene.Mutation):
                       "release_date": releaseDate, "box_office": boxOffice, "budget": budget}
         )
         if created:
+            obj.actors.clear()
+            obj.genres.clear()
+
             obj.actors.set(actors)
             obj.genres.set(genres)
         return AddEditMovie(movie=obj)
