@@ -7,4 +7,18 @@ from movies_graphql.moviedb.actor.actortypes import ActorType
 
 
 class ActorQuery(object):
+    all_actors = graphene.List(ActorType, search=graphene.String())
+    actor = graphene.Field(ActorType, id=graphene.ID())
+
+    def resolve_all_actors(self, info, **kwargs):
+        search = kwargs.get("search")
+        if search:
+            filter = (Q(name__icontains=search))
+            return Actor.objects.filter(filter)
+        return Actor.objects.all()
+
+    def resolve_actor(self, info, **kwargs):
+        id = kwargs.get("id")
+
+        return Actor.objects.get(pk=id)
     pass
