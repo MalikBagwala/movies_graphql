@@ -1,5 +1,5 @@
 import graphene
-from django.db.models import Q, Avg
+from django.db.models import Q, Avg, Count
 from graphene_django.types import DjangoObjectType
 import movies_graphql.moviedb.models as models
 
@@ -21,12 +21,25 @@ class ActorType(DjangoObjectType):
 
 class MovieType(DjangoObjectType):
     rating = graphene.Float()
+    total_votes = graphene.Int()
+
+    @staticmethod
+    def resolve_total_votes(parent, info):
+        total_votes = models.Rating.objects.filter(
+            movie_id=parent.id).aggregate(total=Count("rating"))
+        return total_votes['total']
 
     @staticmethod
     def resolve_rating(parent, info):
         avg_rating = models.Rating.objects.filter(
             movie_id=parent.id).aggregate(rating=Avg("rating"))
-        return avg_rating['rating']
+
+        avg = avg_rating['rating']
+
+        if avg is not None:
+            return round(avg_rating['rating'], 1)
+        else:
+            return avg
 
     class Meta:
         model = models.Movie
@@ -71,7 +84,7 @@ class Query(graphene.ObjectType):
         if search:
             filter = (Q(title__icontains=search))
             return models.Movie.objects.filter(filter)
-        return models.Movie.objects.all()
+        return models.Movie.objects.order_by("-created_at")
 
     def resolve_genre(self, info, **kwargs):
         id = kwargs.get("id")
@@ -119,8 +132,8 @@ class AddEditRating(graphene.Mutation):
         movie = arg.get("movie")
         rating = arg.get("rating")
         obj, created = models.Rating.objects.update_or_create(
-            user=user,
-            movie=movie,
+            user_id=user,
+            movie_id=movie,
             defaults={"rating": rating}
         )
         return AddEditRating(rating=obj)
