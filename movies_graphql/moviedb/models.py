@@ -3,8 +3,8 @@ import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-
 # Abstract Classes
+
 
 class Timestamp(models.Model):
     created_at = models.DateTimeField(
