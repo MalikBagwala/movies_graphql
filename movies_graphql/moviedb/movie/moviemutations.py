@@ -38,5 +38,20 @@ class AddEditMovie(graphene.Mutation):
         return AddEditMovie(movie=obj)
 
 
+class DeleteMovies(graphene.Mutation):
+    movies = graphene.List(graphene.ID)
+
+    class Arguments:
+        movies = graphene.List(graphene.ID)
+
+    def mutate(self, info, movies):
+        deletedMovies = Movie.objects.filter(pk__in=movies).delete()
+        if deletedMovies[0] > 0:
+            return DeleteMovies(movies=movies)
+        else:
+            return None
+
+
 class MovieMutation(object):
     add_edit_movie = AddEditMovie.Field()
+    delete_movies = DeleteMovies.Field()

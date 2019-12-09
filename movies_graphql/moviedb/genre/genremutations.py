@@ -25,5 +25,20 @@ class AddEditGenre(graphene.Mutation):
         return AddEditGenre(genre=obj)
 
 
+class DeleteGenres(graphene.Mutation):
+    genres = graphene.List(graphene.ID)
+
+    class Arguments:
+        genres = graphene.List(graphene.ID)
+
+    def mutate(self, info, genres):
+        deletedGenres = Genre.objects.filter(pk__in=genres).delete()
+        if deletedGenres[0] > 0:
+            return DeleteGenres(genres=genres)
+        else:
+            return None
+
+
 class GenreMutation(object):
     add_edit_genre = AddEditGenre.Field()
+    delete_genres = DeleteGenres.Field()
