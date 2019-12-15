@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'movies_graphql.wsgi.application'
-
+AUTH_USER_MODEL = "moviedb.SystemUser"
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'django_movies',
-        "USER": "admin",
+        "USER": "postgres",
         "PASSWORD": "admin",
         "HOST": "localhost",
         "PORT": "5432",

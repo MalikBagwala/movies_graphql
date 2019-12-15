@@ -2,7 +2,7 @@ from datetime import datetime
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.contrib.auth.models import AbstractUser
 # Abstract Classes
 
 
@@ -15,6 +15,27 @@ class Timestamp(models.Model):
 
     class Meta:
         abstract = True
+
+
+class SystemUser(AbstractUser, Timestamp):
+    number = models.CharField(
+        max_length=15, verbose_name="Phone Number", unique=True, null=True
+    )
+    uuid = models.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+    date_of_birth = models.DateField(
+        verbose_name="Date Of Birth", null=True, blank=True)
+
+    @property
+    def age(self):
+        return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+
+    @property
+    def full_name(self):
+        return self.first_name + " " + self.last_name
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+    pass
 
 
 class Person(models.Model):
@@ -63,18 +84,8 @@ class Movie(Timestamp):
         return f'{self.title} - {self.release_date}'
 
 
-class User(Person, Timestamp):
-    uuid = models.UUIDField(
-        "Universally Unique Identifier", unique=True, editable=False, default=uuid.uuid4
-    )
-    number = models.CharField(
-        max_length=12, verbose_name="Phone Number", unique=True, null=True
-    )
-    email = models.CharField(max_length=50, unique=True, null=True)
-
-
 class Rating(Timestamp):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(SystemUser, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     rating = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(10)])
