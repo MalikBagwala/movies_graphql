@@ -89,10 +89,10 @@ AUTH_USER_MODEL = "moviedb.SystemUser"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd41qj0n3hci0cj',
-        "USER": "pnadvwuanqgbft",
-        "PASSWORD": "c0af9f2960da7351ba2c2a38343d6464fb26fc9f3f08b4fc602ddcc72d336f96",
-        "HOST": "ec2-54-227-249-202.compute-1.amazonaws.com",
+        'NAME': os.environ.get("db_name"),
+        "USER": os.environ.get("db_user"),
+        "PASSWORD": os.environ.get("db_password"),
+        "HOST": os.environ.get("db_host"),
         "PORT": "5432",
     }
 }
