@@ -25,7 +25,7 @@ DEBUG = False if VT_ENV == "production" else True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&^2c^wg71v@te@hl*5^_-xawgw3ib+nnt8c#h%idm2p_zd912$'
 
-ALLOWED_HOSTS = ["127.0.0.1", "django-graphql.herokuapp.com"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "django-graphql.herokuapp.com"]
 
 
 # Application definition
