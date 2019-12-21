@@ -1,7 +1,10 @@
 # Created by https://www.gitignore.io
 # Static Files
 # /static/
-
+# Shell files
+.zshrc
+.bashrc
+.fish
 ### OSX ###
 .DS_Store
 .AppleDouble
