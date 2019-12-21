@@ -23,7 +23,7 @@ DEBUG = False if VT_ENV == "production" else True
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&^2c^wg71v@te@hl*5^_-xawgw3ib+nnt8c#h%idm2p_zd912$'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "django-graphql.herokuapp.com"]
 
@@ -89,10 +89,10 @@ AUTH_USER_MODEL = "moviedb.SystemUser"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("db_name"),
-        "USER": os.environ.get("db_user"),
-        "PASSWORD": os.environ.get("db_password"),
-        "HOST": os.environ.get("db_host"),
+        'NAME': os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
         "PORT": "5432",
     }
 }
