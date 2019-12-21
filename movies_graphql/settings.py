@@ -25,7 +25,7 @@ SECRET_KEY = '&^2c^wg71v@te@hl*5^_-xawgw3ib+nnt8c#h%idm2p_zd912$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django-graphql.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "django-graphql.herokuapp.com"]
 
 
 # Application definition
@@ -75,17 +75,27 @@ AUTH_USER_MODEL = "moviedb.SystemUser"
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'django_movies',
+#         "USER": "postgres",
+#         "PASSWORD": "admin",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_movies',
-        "USER": "postgres",
-        "PASSWORD": "admin",
-        "HOST": "localhost",
+        'NAME': 'd41qj0n3hci0cj',
+        "USER": "pnadvwuanqgbft",
+        "PASSWORD": "c0af9f2960da7351ba2c2a38343d6464fb26fc9f3f08b4fc602ddcc72d336f96",
+        "HOST": "ec2-54-227-249-202.compute-1.amazonaws.com",
         "PORT": "5432",
     }
 }
-
 # GraphQL Schema Setup
 GRAPHENE = {
     'SCHEMA': 'movies_graphql.moviedb.schema.schema'
