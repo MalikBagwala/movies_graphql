@@ -1,4 +1,6 @@
 # Created by https://www.gitignore.io
+# Static Files
+static/
 
 ### OSX ###
 .DS_Store
@@ -87,4 +89,3 @@ local_settings.py
 
 .env
 db.sqlite3
-
