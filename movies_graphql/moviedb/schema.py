@@ -16,8 +16,6 @@ from movies_graphql.moviedb.movie.moviemutations import MovieMutation
 from movies_graphql.moviedb.user.usermutations import UserMutation
 # Queries
 
-# Added a comment in the schema to test SSH
-
 
 class Query(GenreQuery, MovieQuery, ActorQuery, SystemUserQuery, graphene.ObjectType):
     pass
