@@ -8,16 +8,16 @@ from movies_graphql.moviedb.genre.genrequeries import GenreQuery
 from movies_graphql.moviedb.movie.moviequeries import MovieQuery
 from movies_graphql.moviedb.actor.actorqueries import ActorQuery
 from movies_graphql.moviedb.user.userqueries import SystemUserQuery
+from movies_graphql.moviedb.rating.ratingqueries import RatingQuery
 # Mutations
 from movies_graphql.moviedb.genre.genremutations import GenreMutation
 from movies_graphql.moviedb.rating.ratingmutations import RatingMutation
 from movies_graphql.moviedb.actor.actormutations import ActorMutation
 from movies_graphql.moviedb.movie.moviemutations import MovieMutation
 from movies_graphql.moviedb.user.usermutations import UserMutation
-# Queries
 
 
-class Query(GenreQuery, MovieQuery, ActorQuery, SystemUserQuery, graphene.ObjectType):
+class Query(GenreQuery, MovieQuery, ActorQuery, SystemUserQuery, RatingQuery, graphene.ObjectType):
     pass
 
 
