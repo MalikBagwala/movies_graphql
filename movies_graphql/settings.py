@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-VT_ENV = os.environ.get("VT_ENV", "development")
+VT_ENV = config("VT_ENV")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if VT_ENV == "production" else True
 
@@ -23,7 +23,7 @@ DEBUG = False if VT_ENV == "production" else True
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "django-graphql.herokuapp.com"]
 
@@ -89,10 +89,10 @@ AUTH_USER_MODEL = "moviedb.SystemUser"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
+        'NAME': config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
         "PORT": "5432",
     }
 }
