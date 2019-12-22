@@ -27,7 +27,9 @@ class SystemUser(AbstractUser, Timestamp):
 
     @property
     def age(self):
-        return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+        if self.date_of_birth is not None:
+            return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+        return None
 
     @property
     def full_name(self):
