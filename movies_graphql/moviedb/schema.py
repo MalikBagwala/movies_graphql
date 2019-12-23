@@ -16,12 +16,18 @@ from movies_graphql.moviedb.actor.actormutations import ActorMutation
 from movies_graphql.moviedb.movie.moviemutations import MovieMutation
 from movies_graphql.moviedb.user.usermutations import UserMutation
 
+# graphql jwt
+import graphql_jwt
+
 
 class Query(GenreQuery, MovieQuery, ActorQuery, SystemUserQuery, RatingQuery, graphene.ObjectType):
     pass
 
 
 class Mutation(GenreMutation, RatingMutation, ActorMutation, MovieMutation, UserMutation, graphene.ObjectType):
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
     pass
 
 

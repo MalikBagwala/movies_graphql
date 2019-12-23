@@ -6,6 +6,27 @@ from movies_graphql.moviedb.models import SystemUser
 # Genre GraphQL Type
 from movies_graphql.moviedb.user.usertypes import SystemUserType
 
+from graphql_jwt.decorators import token_auth
+from graphql_jwt import JSONWebTokenMutation
+import graphql_jwt
+
+
+class Login(JSONWebTokenMutation):
+    user = graphene.Field(SystemUserType)
+
+    class Arguments:
+        username = graphene.String()
+        password = graphene.String()
+
+    @classmethod
+    @token_auth
+    def mutate(cls, root, info, **kwargs):
+        return cls.resolve(root, info, **kwargs)
+
+    @classmethod
+    def resolve(cls, root, info, **kwargs):
+        return cls(user=info.context.user)
+
 
 class AddEditUser(graphene.Mutation):
     user = graphene.Field(SystemUserType)
@@ -36,4 +57,5 @@ class AddEditUser(graphene.Mutation):
 
 
 class UserMutation(object):
+    login = Login.Field()
     add_edit_user = AddEditUser.Field()

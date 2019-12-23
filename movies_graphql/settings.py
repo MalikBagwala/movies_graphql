@@ -76,16 +76,6 @@ AUTH_USER_MODEL = "moviedb.SystemUser"
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'django_movies',
-#         "USER": "postgres",
-#         "PASSWORD": "admin",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -99,8 +89,16 @@ DATABASES = {
 }
 # GraphQL Schema Setup
 GRAPHENE = {
-    'SCHEMA': 'movies_graphql.moviedb.schema.schema'
+    'SCHEMA': 'movies_graphql.moviedb.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

@@ -9,3 +9,8 @@ class SystemUserType(DjangoObjectType):
 
     class Meta:
         model = SystemUser
+        exclude = ('password',)
+
+
+class MyData(graphene.ObjectType):
+    user = graphene.Field(SystemUserType)
