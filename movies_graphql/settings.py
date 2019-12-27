@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 VT_ENV = config("VT_ENV")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if VT_ENV == "production" else True
+DEBUG = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
