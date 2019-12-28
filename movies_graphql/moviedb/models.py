@@ -41,8 +41,10 @@ class SystemUser(AbstractUser, Timestamp):
 
 
 class Person(models.Model):
-    first_name = models.CharField(max_length=60, verbose_name="First Name")
-    last_name = models.CharField(max_length=60, verbose_name="Last Name")
+    first_name = models.CharField(
+        max_length=60, null=True, blank=True, verbose_name="First Name")
+    last_name = models.CharField(
+        max_length=60, null=True, blank=True, verbose_name="Last Name")
     date_of_birth = models.DateField(
         verbose_name="Date Of Birth", null=True, blank=True)
 
