@@ -1,0 +1,10 @@
+{
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "development": {
+        "url": https://django-graphql.herokuapp.com/graphql,
+      }
+    }
+  }
+}
