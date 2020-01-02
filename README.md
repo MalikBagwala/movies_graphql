@@ -1,0 +1,3 @@
+# Movies GraphQL API
+
+This is a fully fleged GraphQL API built using Python, Django Framework and Postgres as the database engine. It was a lot of fun to explore the Django ORM and the amazing functionalities which it brings with it. My initial choice was to use NodeJs and MongoDB for the backend service but I found it particularly difficult to maintain a ton of many-many relationships (which are really common in the movies world!) in MongoDB and NodeJs also lacks quality SQL ORMS. Which made Python Django my choice for this project. It includes complete CRUD Functionality and focuses on scalable and reusable code. One of the projects I had the most fun creating, it is also live on Heroku! so check it out.
