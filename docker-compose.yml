@@ -2,6 +2,26 @@ version: "3.1"
 
 # Only for development purposes
 services:
+  # Uncomment the app service as well if you want the entire django app to function on docker (server + database)
+  # You may have to set the below enviromment variables in your local .env file as well
+
+  # app:
+  #   build: .
+  #   ports:
+  #     - 8081:8081
+  #   volumes:
+  #     - .:/usr/src/app
+  #   environment:
+  #     - SECRET_KEY=P0yC8pQeP4ZRSWByqE9JBCBJkbGkCRF7rwdMK1yTEV6W0GaVjQ
+  #       POSTGRES_USER=malik
+  #       POSTGRES_PASSWORD=admin
+  #       POSTGRES_DB=movies
+  #       POSTGRES_HOST=postgres
+  #       VT_ENV=test
+  #   command: "python3 manage.py runserver 0.0.0.0:8081"
+  #   depends_on:
+  #     - postgres
+
   postgres:
     image: postgres:alpine
     restart: always
