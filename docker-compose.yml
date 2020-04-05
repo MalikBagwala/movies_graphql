@@ -1,0 +1,16 @@
+version: "3.1"
+
+# Only for development purposes
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      # Use these settings to connectthe django app with the postgres database
+      POSTGRES_USER: "malik"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "movies"
